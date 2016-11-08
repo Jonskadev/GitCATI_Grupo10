@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app = "App">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio Login</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="controller.js"></script>
+</head>
+<body ng-controller="AppController">
+
+<center>
+    <strong>Crear nuevo usuario:</strong>
+    <br>
+    <br>
+    Ingrese nombre de usuario a crear:
+    <br>
+    <input type="text" ng-model="newUser.username">
+    <br>
+    Ingrese contraseña:
+    <br>
+    <input type="text" ng-model="newUser.password">
+    <br>
+    Ingrese e-mail:
+    <br>
+    <input type="text" ng-model="newUser.email">
+    <br>
+    <button ng-click="addUser()">Crear</button>
+
+</center>
+</body>
+</html>

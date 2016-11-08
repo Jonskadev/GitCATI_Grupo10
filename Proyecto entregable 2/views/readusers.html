@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "App">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuarios</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="controller.js"></script>
+</head>
+<body ng-controller="UserController">
+
+
+<strong>Lista de Usuarios :</strong>
+    <br>
+    <br>
+    <ul>
+        <li ng-repeat="user in listofusers track by $index">
+            Nombre de usuario: <span>{{user.username}}</span>
+            <p>
+                Contraseña: <span>{{user.password}}</span>
+            </p>
+            <p>
+                E-mail: <span>{{user.email}}</span>
+            </p>
+            <p>
+                Permiso: <span>{{user.permiso}}</span>
+            </p>
+        </li>
+    </ul>
+</body>
+</html>
