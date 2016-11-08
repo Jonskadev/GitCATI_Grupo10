@@ -191,7 +191,69 @@
             <td><button ng-click="updateUser(usertoupdate)">Editar</button></td>
         </tr>
     </table>
+</div>
 
+<!--MANEJO DE ESTADOS-->
+<br>
+<font size="5" color="red"><strong>Opciones de estado para el encuestado:</strong></font>
+
+<div ng-controller = "StatusController">
+
+    <strong>Lista de estados :</strong>
+    <br>
+    <br>
+    <table border="1" cellpadding="7" cellspacing="7">
+        <tr>
+            <th width="50px">N°</th>
+            <th>Nombre de estado</th>
+            <th width="120px">Opciones</th>
+        </tr>
+
+        <tr ng-repeat="state in listofstates track by $index">
+            <td>{{$index + 1}}</td>
+            <td>{{state.state_name}}</td>
+            <td><button>Borrar</button>
+                <button>Editar</button></td>
+        </tr>
+    </table>
+    <br>
+
+    <strong>Crear nuevo estado:</strong>
+    <br>
+    <br>
+
+    <table border="1" cellpadding="7" cellspacing="7">
+
+        <tr>
+            <th>Nombre del estado:</th>
+            <th width="120px">Opciones</th>
+        </tr>
+
+        <tr>
+            <td><input type="text" ng-model="newState.state_name"></td>
+            <td><button ng-click="addState()">Crear</button></td>
+        </tr>
+
+    </table>
+    <!--<br>
+    <strong>Borrar proyecto:</strong>
+    <br>
+    <br>
+
+    <table border="1" cellpadding="7" cellspacing="7">
+
+        <tr>
+            <th>Proyecto a borrar</th>
+            <th width="120px"></th>
+        </tr>
+
+        <tr>
+            <td><input type="number" ng-model="proyecttodelete.idProyecto"></td>
+            <td><button ng-click="deleteProyect(proyecttodelete)">Borrar</button></td>
+        </tr>
+
+    </table>
+    <br>-->
 </div>
 </body>
 </html>

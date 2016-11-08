@@ -5,6 +5,7 @@ var router = express.Router();
 //Importamos el modelo que ejecutará las sentencias SQL
 var usuariosModel = require('../models/usuario');
 var proyectosModel = require('../models/proyecto');
+var estadosModel = require('../models/estado');
 
 module.exports = router;
 
@@ -40,7 +41,6 @@ router.route('/usuarios')
 router.route('/usuarios/:username')
 	.delete(function(request, response) {
 		var username = request.params.username;
-		console.log(request.params.username);
 		usuariosModel.deleteUsuario(username, function(error, datos) {
 			if (datos && datos.mensaje === "Borrado") {
 				return response.status(200).json(datos);
@@ -100,7 +100,6 @@ router.route('/proyectos')
 router.route('/proyectos/:idProyecto')
 	.delete(function(request, response) {
 		var idProyecto = request.params.idProyecto;
-		console.log(request.params.idProyecto);
 		proyectosModel.deleteProyecto(idProyecto, function(error, datos) {
 			if (datos && datos.mensaje === "Borrado") {
 				return response.status(200).json(datos);
@@ -113,8 +112,8 @@ router.route('/proyectos/:idProyecto')
 	})
 	.put(function(request, response) {
 		var datosProyecto = {
-			idProyecto : request.params.idProyecto,
-			nombre : request.body.nombre
+			idProyecto: request.params.idProyecto,
+			nombre: request.body.nombre
 		};
 		proyectosModel.updateProyecto(datosProyecto, function(error, datos) {
 			//si el proyecto se ha actualizado correctamente mostramos un mensaje
@@ -128,6 +127,47 @@ router.route('/proyectos/:idProyecto')
 			}
 		});
 	});
+
+//Coger todos los estados
+router.route('/estados')
+	.get(function(request, response) {
+		estadosModel.getEstados(function(error, data) {
+			var datos = data;
+			return response.status(200).json(datos);
+
+		});
+	})
+	.post(function(request, response) {
+		var datosEstado = {
+			state_name: request.body.state_name,
+		};
+		estadosModel.insertEstado(datosEstado, function(error, datos) {
+			if (datos) {
+				return response.status(200).json({
+					"Mensaje": "Insertado"
+				});
+			} else {
+				return response.status(500).json({
+					"Mensaje": "Error"
+				});
+			}
+		});
+	});
+
+router.route('/estados/:state_name')
+	.delete(function(request, response) {
+		var state_name = request.params.state_name;
+		estadosModel.deleteEstado(state_name, function(error, datos) {
+			if (datos && datos.mensaje === "Borrado") {
+				return response.status(200).json(datos);
+			} else {
+				return response.status(500).json({
+					"Mensaje": "Error"
+				});
+			}
+		})
+	});
+
 
 //Coger usuario por username
 /*router.route('/usuarios')

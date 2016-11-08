@@ -97,31 +97,6 @@ app.controller("ProyectController",function($scope,$http){
     $scope.proyecttodelete = {};
     $scope.proyecttoupdate = {};
 
-    /*$scope.listofproyects = [
-        {
-            idproyecto:1,
-            nombre:"deckss",
-            idencuesta:22
-        },
-        {
-            idproyecto:2,
-            nombre:"vagss",
-            idencuesta:22
-        },
-        {
-            idproyecto:3,
-            nombre:"deksvags",
-            idencuesta:69
-        },
-        {
-            id:4,
-            nombre:"pito",
-        },
-
-
-
-        ];*/
-
     $http.get('/api/proyectos')
         .success(function(data){
             $scope.listofproyects = data;
@@ -166,4 +141,31 @@ app.controller("ProyectController",function($scope,$http){
 
 
     };
+});
+
+app.controller("StatusController",function($scope, $http){
+    $scope.listofstates = [];
+    $scope.newState = {};
+    $scope.statetodelete = {};
+
+    $http.get("/api/estados")
+        .success(function(data){
+            $scope.listofstates = data;
+            })
+            .error(function(err){
+                console.log(err)
+            })
+
+    $scope.addState = function(){
+        $http.post("/api/estados", {
+            state_name: $scope.newState.state_name
+        })
+            .success(function(data){
+                $scope.listofstates.push(data);
+                $scope.newState = {}
+            })
+            .error(function(err){
+                console.log(err);
+            })
+    }
 });
