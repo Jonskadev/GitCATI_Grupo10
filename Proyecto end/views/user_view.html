@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "App">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuario</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="controller.js"></script>
+</head>
+<body>
+<div ng-controller="RespondentController">
+    <strong>Contacto a llamar :</strong>
+    <br>
+    <br>
+    <table border="1" cellpadding="7" cellspacing="7">
+        <tr>
+
+            <th>Teléfono</th>
+            <th>Nombre de contacto</th>
+            <th>Rut</th>
+            <th>Estado:</th>
+
+            <th width="120px">Opciones</th>
+        </tr>
+
+        <tr>
+
+            <td>{{listofrespondents[0].telefono}}</td>
+            <td>{{listofrespondents[0].rut}}</td>
+            <td>{{listofrespondents[0].nombre}}</td>
+            <td>Insertar estado</td>
+            <td><button>Llamar</button>
+                <button>Siguiente</button></td>
+        </tr>
+
+    </table>
+<center>
+    <iframe src="https://es.surveymonkey.com/r/JV25G3R" width="750" height="450">
+        <p>Your browser does not support iframes.</p>
+    </iframe>
+</center>
+
+    <br>
+</div>
+</body>
+</html>

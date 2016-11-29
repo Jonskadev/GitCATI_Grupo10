@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app = "App">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio Login</title>
+</head>
+<body ng-controller="AppController">
+
+    <center>
+        <strong>Bienvenido al sistema CATI</strong>
+        <br>
+        <br>
+        Ingrese nombre de usuario:
+        <br>
+        <input type="text" ng-model="userpasswrtn.username">
+        <br>
+        Ingrese Contraseña:
+        <br>
+        <input type="text" ng-model="userpasswrtn.password">
+        <br>
+        <button ng-click="verifyUser()">Entrar</button>
+
+    </center>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="controller.js"></script>
+</body>
+</html>
