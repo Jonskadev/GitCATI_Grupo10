@@ -1,0 +1,35 @@
+<tbody ng-controller="showAllProyects" >
+<tr ng-repeat="proyect in proyects track by $index">
+    <td>{{ $index + 1}}</td>
+    <td> <span data-ng-hide="editMode" ng-bind="proyect.name"></span>
+        <input type="text" data-ng-show="editMode" data-ng-model="proyect.name" data-ng-required /></td>
+
+    <td> <span data-ng-hide="editMode" ng-bind="proyect.company"></span>
+        <input type="text" data-ng-show="editMode" data-ng-model="proyect.company" data-ng-required /></td>
+
+    <td> <span data-ng-hide="editMode" ng-bind="proyect.need"></span>
+        <input type="text" data-ng-show="editMode" data-ng-model="proyect.need" data-ng-required /></td>
+
+    <td> <span data-ng-hide="editMode" ng-bind="proyect.link"></span>
+        <input type="text" data-ng-show="editMode" data-ng-model="proyect.link" data-ng-required /></td>
+    <th>
+        <input type="button" value="Editar" data-ng-hide="editMode" data-ng-click="editMode = true; edit(proyect)" class="btn btn-warning"/>
+        <input type="button" value="Guardar" data-ng-show="editMode" data-ng-click="editMode = false; saveField($index,proyect)" class="btn btn-default"/>
+        <input type="button" value="Cancelar" data-ng-show="editMode" data-ng-click="editMode = false; cancel()" class="btn btn-default"/>
+        <input type="button" value="Eliminar Proyecto" data-ng-click="editMode=false; delete($index,proyect.id)" class="btn btn-danger" />
+    </th>
+    <th>
+        <form>
+                    <span class="btn btn-default btn-file">
+                        <span class="glyphicon glyphicon-folder-open"></span> &nbspCargar Archivo <input type="file" class="file" id="file_{{$index}}" name="file" ng-click="fileSelected($index)"/>
+                    </span>
+            <button class="btn btn-default" ng-show="isLoaded($index)" ng-click="uploadCsv($index, proyect.id)">
+                <span class="glyphicon glyphicon-list-alt"></span> Cargar CSV
+            </button>
+        </form>
+    </th>
+
+
+
+</tr>
+</tbody>

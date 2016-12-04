@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "App">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrador</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/flatly/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+    <script src="controller.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">CATI Software Admin</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+        <!--Cerrar sesión-->
+        <form action="/logout" method="get">
+            <button type="submit" class="btn btn-danger">Cerrar sesion</button>
+        </form>
+    </ul>
+
+  </div>
+</nav>
+
+<center>
+    <font size="5" color="black"><strong>Administración de base de datos</strong></font>
+</center>
+<!--CRUD  PROYECTOS-->
+<article class="col-md-9">
+<font size="5" color="black"><strong>Proyectos</strong></font>
+<br>
+<br>
+<div ng-controller="ProyectController" class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Lista de proyectos :</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id-Proyecto</th>
+                    <th>Nombre del proyecto</th>
+                    <th>Link de encuesta</th>
+                </tr>
+             </thead>
+             <tbody>
+                <tr ng-repeat="proyect in listofproyects track by $index" class="active">
+                    <td>{{proyect.idProyecto}}</td>
+                    <td>{{proyect.nombre}}</td>
+                    <td><a ng-href="{{proyect.link}}">{{proyect.link}}</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div ng-controller="ProyectController" class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Gestión de proyectos</h3>
+    </div>
+    <div class="panel-body">
+
+        <!--<form class="form-horizontal">
+          <fieldset>
+            <legend>Crear nuevo proyecto</legend>
+            <label>nombre del proyecto <input type="text" ng-model="newProyect.nombre" /></label><br>
+            <label>Link de encuesta <input type="text" ng-model="newProyect.link" /></label><br>
+            <label>Contactos <input type="file" enctype="multipart/form-data" name="file" id = "file_" /></label><br>
+            <input type="button" ng-click="reset" value="Limpiar" />
+            <input type="submit" ng-click="addProyect()" value="Save" />
+          </fieldset>
+        </form>-->
+        <strong>Crear nuevo proyecto:</strong>
+        
+        <table class="table table-striped table-hover">
+            <thead>
+                <th>Nombre </th>
+                <th>Link de encuesta</th>
+                <th>Lista de contactos (ingresar archivo .csv)</th>
+                <th width="120px">Opciones</th>
+            </thead>
+
+            <tbody>
+
+                <td><input type="text" placeholder="Nombre" ng-model="newProyect.nombre"></td>
+                <td><input type="text" placeholder="Link" ng-model="newProyect.link"></td>
+                <td><input type="file" enctype="multipart/form-data" name="file" id = "file_"/></td>
+                <td><button ng-click="addProyect()">Crear</button></td>
+            </tbody>
+
+        </table>
+
+        <strong>Borrar proyecto:</strong>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <th>Proyecto a borrar</th>
+                <th width="120px"></th>
+            </thead>
+
+            <tbody>
+                <td><input type="number" min="1" placeholder="Id-Proyecto" ng-model="proyecttodelete.idProyecto"></td>
+                <td><button ng-click="deleteProyect(proyecttodelete)">Borrar</button></td>
+            </tbody>
+        </table>
+
+        <strong>Editar proyecto:</strong>
+     
+        <table class="table table-striped table-hover">
+            <thead>
+                <th>Id de proyecto a cambiar</th>
+                <th>Nombre a cambiar</th>
+                <th>Link a cambiar</th>
+                <th width="120px">Opciones</th>
+            </thead>
+            <tbody>
+                <td><input type="number" min="1" placeholder="Id-Proyecto" ng-model="proyecttoupdate.idProyecto"></td>
+                <td><input type="text" placeholder="Nombre" ng-model="proyecttoupdate.nombre"></td>
+                <td><input type="text" placeholder="Link" ng-model="proyecttoupdate.link"></td>
+                <td><button ng-click="updateProyect(proyecttoupdate)">Editar</button></td>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--CRUD USUARIOS-->
+
+<font size="5" color="black"><strong>Usuarios:</strong></font>
+<br>
+<br>
+<div ng-controller="UserController" class="panel panel-info">
+   <div class="panel-heading">
+        <h3 class="panel-title">Lista de usuarios :</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Usuario</th>
+                    <th>Contraseña</th>
+                    <th>E-mail</th>
+                    <th>Permiso</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in listofusers track by $index">
+                    <td><span>{{$index + 1}}</span></td>
+                    <td><span>{{user.username}}</span></td>
+                    <td><span>{{user.password}}</span></td>
+                    <td><span>{{user.email}}</span></td>
+                    <td><span>{{user.permiso}}</span></td>
+                </tr>
+            <tbody>
+        </table>
+    </div>
+</div>
+
+<div ng-controller="UserController" class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Gestión de usuarios</h3>
+    </div>
+    <div class="panel-body">
+
+    <strong>Crear nuevo usuario:</strong>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Contraseña</th>
+                <th>E-mail</th>
+                <th width="120px">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" placeholder="Username" ng-model="newUser.username"></td>
+                <td><input type="text" placeholder="Password" ng-model="newUser.password"></td>
+                <td><input type="text" placeholder="E-mail" ng-model="newUser.email"></td>
+                <td><button ng-click="addUser()">Crear</button></td>
+            </tr>
+        <tbody>
+    </table>
+
+    <strong>Borrar usuario:</strong>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Usuario a borrar</th>
+                <th width="120px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" placeholder="Username" ng-model="usertodelete.username"></td>
+                <td><button ng-click="deleteUser(usertodelete)">Borrar</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <strong>Editar usuario:</strong>
+   
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Contraseña</th>
+                <th>E-mail</th>
+                <th width="120px">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" placeholder="Username" ng-model="usertoupdate.username"></td>
+                <td><input type="text" placeholder="Password" ng-model="usertoupdate.password"></td>
+                <td><input type="text" placeholder="E-mail" ng-model="usertoupdate.email"></td>
+                <td><button ng-click="updateUser(usertoupdate)">Editar</button></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+
+<font size="5" color="black"><strong>Llamadas</strong></font>
+<br>
+<br>
+<div ng-controller = "epController" class="panel panel-info">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">Lista de Llamadas</h3>
+    </div>
+    <div class="panel-body">
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id-Llamada</th>
+                    <th>Observaciones</th>
+                    <th>Usuario asignado</th>
+                    <th>Telefono</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="call in listofcalls track by $index">
+                    <td><span>{{call.idLlamada}}</span></td>
+                    <td><span>{{call.observaciones}}</span></td>
+                    <td><span>{{call.username}}</span></td>
+                    <td><span>{{call.telefono}}</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    <div ng-controller = "epController" class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">Lista de Contactos:</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Id-Proyecto</th>
+                        <th>Teléfono</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="resp in listofrespondents track by $index">
+                        <td><span>{{resp.idProyecto}}</span></td>
+                        <td><span>{{resp.telefono}}</span></td>
+                        <td><span>{{resp.estado}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</article>
+
+ <!-- Latest compiled and minified JavaScript -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
